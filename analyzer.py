@@ -33,6 +33,10 @@ else:
 # replace the app token with the user token for access to the user's playlists and such
 spotify.token = user_token
 
+""" 
+Retrieve data from a playlist given a playlist ID.
+"""
+
 # input a playlist of your choice by pasting the URL here
 playlist_id = input("Enter a Spotify playlist ID: ")
 playlist = spotify.playlist(playlist_id)
