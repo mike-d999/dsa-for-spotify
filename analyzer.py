@@ -37,4 +37,7 @@ spotify.token = user_token
 playlist_id = input("Enter a Spotify playlist ID: ")
 playlist = spotify.playlist(playlist_id)
 
-
+# retrieve track names, artists, albums data
+track_names = spotify.playlist_items(playlist_id, fields='tracks.items(track(name))')
+artists = spotify.playlist_items(playlist_id, fields='tracks.items(track(artists(name)))')
+albums = spotify.playlist_items(playlist_id, fields='tracks.items(track(album(name)))')
