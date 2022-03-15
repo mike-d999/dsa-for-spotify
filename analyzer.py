@@ -2,6 +2,9 @@
 import os
 import tekore
 
+""" 
+User authentication with the Spotify Web API.
+"""
 # client id and client secret values from spotify application
 client_id = '<replace this with your spotify for developers app client id>'
 client_secret = '<replace this with your spotify for developers app client secret>'
@@ -30,14 +33,8 @@ else:
 # replace the app token with the user token for access to the user's playlists and such
 spotify.token = user_token
 
-
-
-
-
-
-
-
-
-
+# input a playlist of your choice by pasting the URL here
+playlist_id = input("Enter a Spotify playlist ID: ")
+playlist = spotify.playlist(playlist_id)
 
 
