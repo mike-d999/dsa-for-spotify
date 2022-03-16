@@ -46,8 +46,18 @@ Retrieve data from a playlist given a playlist ID.
 # input a playlist of your choice by pasting the URL here
 playlist_id = input("Enter a Spotify playlist ID: ")
 playlist = spotify.playlist(playlist_id)
+print()
+print("Playlist found! Please wait while the program writes your playlist's song titles and artists to disk...")
+print()
 
-# retrieve track names, artists, albums data
-track_names = spotify.playlist_items(playlist_id, fields='tracks.items(track(name))')
-artists = spotify.playlist_items(playlist_id, fields='tracks.items(track(artists(name)))')
-albums = spotify.playlist_items(playlist_id, fields='tracks.items(track(album(name)))')
+# create an index for iterating through track names and create a file for storing track names
+current_index = 0
+song_data = open('song_data.txt', 'w')
+
+# iterate through the first 100 tracks and artists and write them to the song data file
+while current_index != 100:
+    song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
+    song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
+    song_data.write('\n')
+    print("Wrote track name and artist data for song", current_index+1, "to disk.")
+    current_index += 1
