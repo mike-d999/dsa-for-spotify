@@ -1,3 +1,4 @@
-user_config.cfg
 __pycache__
 .DS_Store
+user_config.cfg
+app_config.txt
