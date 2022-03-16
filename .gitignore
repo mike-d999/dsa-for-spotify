@@ -1,4 +1,5 @@
 __pycache__
 .DS_Store
-user_config.cfg
 app_config.txt
+song_data.txt
+user_config.cfg
