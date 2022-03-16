@@ -1,13 +1,20 @@
-# import the tekore library for working with the spotify web api, os library for os level functions
+# import tekore for working with the spotify web api, os for os level functions
 import os
 import tekore
 
 """ 
 User authentication with the Spotify Web API.
 """
+# open the app config file containing the client id and client secret and write them to a list
+app_config_file = open('app_config.txt', 'r')
+app_config = []
+
+for eachLine in app_config_file:
+    app_config.append(eachLine.strip())
+
 # client id and client secret values from spotify application
-client_id = '<replace this with your spotify for developers app client id>'
-client_secret = '<replace this with your spotify for developers app client secret>'
+client_id = app_config[0]
+client_secret = app_config[1]
 
 # generate an app token using the client id and client secret values from the spotify application
 app_token = tekore.request_client_token(client_id, client_secret)
