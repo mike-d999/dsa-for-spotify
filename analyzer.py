@@ -12,7 +12,7 @@ app_config = []
 for eachLine in app_config_file:
     app_config.append(eachLine.strip())
 
-# client id and client secret values from spotify application
+# client id and client secret values from spotify application are populated in from the list
 client_id = app_config[0]
 client_secret = app_config[1]
 
@@ -29,13 +29,30 @@ redirect_uri = 'https://example.com/callback'
 if os.path.exists('user_config.cfg'):
     user_config = tekore.config_from_file('user_config.cfg', return_refresh=True)
     user_token = tekore.refresh_user_token(*user_config[:2], user_config[3])
+    print()
+    print("--------------------------------------------------------")
+    print("Welcome back to the Duplicate Song Analyzer for Spotify!")
+    print("--------------------------------------------------------")
+    print()
 
 # if user_config file does not exist - sign in to spotify to get the initial user token and paste the redirect URL into the
 # terminal - the program will save a user_config file so you don't need to sign back into spotify again.
 else:
+    print()
+    print("---------------------------------------------------")
+    print("Welcome to the Duplicate Song Analyzer for Spotify!")
+    print("---------------------------------------------------")
+    print()
+    print("Since this is your first time using the program, please authorize your account with Spotify to continue.")
+    print("You will only have to do this once, as a file will be generated that saves your login information.")
+    print("(Note: If you delete 'user_config.cfg', you'll have to go through this setup again.)")
+    print()
     user_token = tekore.prompt_for_user_token(client_id, client_secret, redirect_uri, scope=tekore.scope.every)
     user_config = (client_id, client_secret, redirect_uri, user_token.refresh_token) 
     tekore.config_to_file('user_config.cfg', user_config)
+    print()
+    print("Authorization successful!")
+    print()
 
 # replace the app token with the user token for access to the user's playlists and such
 spotify.token = user_token
@@ -44,7 +61,7 @@ spotify.token = user_token
 Retrieve data from a playlist given a playlist ID.
 """
 # input a playlist of your choice by pasting the URL here
-playlist_id = input("Enter a Spotify playlist ID: ")
+playlist_id = input("Please enter a Spotify playlist ID: ")
 playlist = spotify.playlist(playlist_id)
 print()
 print("Playlist found! Please wait while the program writes your playlist's song titles and artists to disk...")
