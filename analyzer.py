@@ -83,5 +83,13 @@ while current_index < 100:
         song_data.close()
         break
 
+# open the song data file and read it into list items (unformatted)
 with open('song_data.txt', 'r') as song_data:
-    lines_list = song_data.readlines()
+    song_data_list_unformatted = song_data.readlines()
+
+# create a new list (formatted) for storing song data
+song_data_list = []
+
+# for each item in the unformatted list, strip the newline character and append each item to a new list (formatted)
+for eachItem in song_data_list_unformatted:
+    song_data_list.append(eachItem.strip())
