@@ -72,9 +72,12 @@ current_index = 0
 song_data = open('song_data.txt', 'w')
 
 # iterate through the first 100 tracks and artists and write them to the song data file
-while current_index != 100:
-    song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
-    song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
-    song_data.write('\n')
-    print("Wrote track name and artist data for song", current_index+1, "to disk.")
-    current_index += 1
+while current_index < 100:
+    try:
+        song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
+        song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
+        song_data.write('\n')
+        print("Wrote track name and artist data for song", current_index+1, "to disk.")
+        current_index += 1
+    except:
+        break
