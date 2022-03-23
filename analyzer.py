@@ -80,4 +80,8 @@ while current_index < 100:
         print("Wrote track name and artist data for song", current_index+1, "to disk.")
         current_index += 1
     except:
+        song_data.close()
         break
+
+with open('song_data.txt', 'r') as song_data:
+    lines_list = song_data.readlines()
