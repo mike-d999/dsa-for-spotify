@@ -118,6 +118,24 @@ def main():
         print("There were", len(duplicate_songs), "duplicate songs found in your playlist: ")
         print(", ".join(duplicate_songs))
         print()
+        remove_duplicates = input("Would you like to remove the duplicate songs from your playlist? ")
+        
+        # create a variable for checking if a valid response was provided for removing duplicates
+        rd_valid_response_provided = False
+        
+        # check for a valid response as to if the program should remove duplicates or not and respond accordingly 
+        while rd_valid_response_provided == False:
+            if remove_duplicates == 'y':
+                rd_valid_response_provided = True
+                print()
+            elif remove_duplicates == 'n':
+                rd_valid_response_provided = True
+                print()
+            else:
+                print()
+                print("The response you provided was invalid. The valid responses are 'y' for yes and 'n' for no.")
+                remove_duplicates = input("Would you like to remove the duplicate songs from your playlist? ")
+
         run_again()
 
 def run_again():
