@@ -72,8 +72,8 @@ def main():
     current_index = 0
     song_data = open('song_data.txt', 'w')
 
-    # create a list for storing each song's URI - needed for duplicate removal
-    song_uris = []
+    # create a dictionary for storing each song's URI - needed for duplicate removal
+    song_uris_dict = {}
 
     # iterate through the first 100 tracks and artists and write to the song data file
     while current_index < 100:
@@ -81,7 +81,9 @@ def main():
             song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
             song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
             song_data.write('\n')
-            song_uris.append(spotify.playlist_items(playlist.id).items[current_index].track.uri)
+            song_uris_dict[spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- " + \
+            spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name] \
+            = spotify.playlist_items(playlist.id).items[current_index].track.uri
             print("Wrote data for song", current_index+1, "to disk.")
             current_index += 1
         except:
