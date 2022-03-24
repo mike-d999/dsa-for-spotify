@@ -79,10 +79,12 @@ def main():
     while current_index < 100:
         try:
             song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
-            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
+            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name + " " + "- ")
+            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.album.name)
             song_data.write('\n')
             song_uris_dict[spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- " + \
-            spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name] \
+            spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name + " " + "- " + \
+            spotify.playlist_items(playlist.id).items[current_index].track.album.name] \
             = spotify.playlist_items(playlist.id).items[current_index].track.uri
             print("Wrote data for song", current_index+1, "to disk.")
             current_index += 1
