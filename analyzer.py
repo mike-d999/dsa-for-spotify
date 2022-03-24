@@ -115,7 +115,9 @@ def main():
 
     else:
         print()
-        print("There were", len(duplicate_songs), "duplicate songs found in your playlist.")
+        print("There were", len(duplicate_songs), "duplicate songs found in your playlist: ")
+        print(", ".join(duplicate_songs))
+        print()
         run_again()
 
 def run_again():
