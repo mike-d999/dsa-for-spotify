@@ -61,12 +61,21 @@ def main():
     """ 
     Retrieve data from a playlist given a playlist ID.
     """
-    # input a playlist of your choice by pasting the URL here
-    playlist_id = input("Please enter a Spotify playlist ID: ")
-    playlist = spotify.playlist(playlist_id)
-    print()
-    print("Playlist found! Please wait while the program writes your playlist's data to disk...")
-    print()
+    # create a variable for checking if a valid response was provided for playlist
+    pid_valid_response_provided = False
+
+    # input a playlist of your choice by pasting the playlist iD here, check to ensure it is valid
+    while pid_valid_response_provided == False:
+        try:
+            playlist_id = input("Please enter a Spotify playlist ID: ")
+            playlist = spotify.playlist(playlist_id)
+            pid_valid_response_provided = True
+            print()
+            print("Playlist found! Please wait while the program writes your playlist's data to disk...")
+            print()
+        except:
+            print()
+            print("The playlist URL you specified was invalid.")
 
     # create an index for iterating through track names and create a file for storing track info
     current_index = 0
