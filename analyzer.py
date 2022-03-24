@@ -93,3 +93,14 @@ song_data_list = []
 # for each item in the unformatted list, strip the newline character and append each item to a new list (formatted)
 for eachItem in song_data_list_unformatted:
     song_data_list.append(eachItem.strip())
+
+# create lists for storing already seen song/artist combinations and unique ones
+unique_songs = []
+duplicate_songs = []
+
+# loop through the formatted song data list and identify if a song is unique or a duplicate - keep track by directing the song to its respective list.
+for eachItem in song_data_list:
+    if eachItem not in unique_songs:
+        unique_songs.append(eachItem)
+    else:
+        duplicate_songs.append(eachItem)
