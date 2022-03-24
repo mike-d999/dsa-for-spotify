@@ -68,7 +68,7 @@ def main():
     print("Playlist found! Please wait while the program writes your playlist's data to disk...")
     print()
 
-    # create an index for iterating through track names and create a file for storing track names
+    # create an index for iterating through track names and create a file for storing track info
     current_index = 0
     song_data = open('song_data.txt', 'w')
 
@@ -133,10 +133,28 @@ def main():
         while rd_valid_response_provided == False:
             if remove_duplicates == 'y':
                 rd_valid_response_provided = True
+
+                # create a list for storing uri values that need to be removed
+                song_uris_list = []
+
+                # get the uri values from the song uri dictionary and append them to a list
+                for eachSong in duplicate_songs:
+                    if song_uris_dict[eachSong] not in song_uris_list:
+                        song_uris_list.append(song_uris_dict[eachSong])
+
+                # remove all copies of the songs from the playlist entirely
+                spotify.playlist_remove(playlist.id, song_uris_list)
+
+                # add back a single copy of each of the songs removed
+                spotify.playlist_add(playlist.id, song_uris_list)
+
+                print("The duplicate songs were successfully removed from your playlist!")
                 print()
+
             elif remove_duplicates == 'n':
                 rd_valid_response_provided = True
                 print()
+
             else:
                 print()
                 print("The response you provided was invalid. The valid responses are 'y' for yes and 'n' for no.")
