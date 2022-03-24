@@ -178,10 +178,20 @@ def run_again():
             ra_valid_response_provided = True
             print()
             print("Thank you for using the Duplicate Song Analyzer for Spotify!")
+            cleanup()
         else:
             print()
             print("The response you provided was invalid. The valid responses are 'y' for yes and 'n' for no.")
             run_again = input("Would you like to check for duplicates in another playlist? ")
 
+def cleanup():
+    # remove the following files after using the program
+    if os.path.exists('__pycache__'):
+        os.remove('__pycache__')
+    if os.path.exists('.DS_Store'):
+        os.remove('.DS_Store')
+    if os.path.exists('song_data.txt'):
+        os.remove('song_data.txt')
+    
 # run the program
 main()
