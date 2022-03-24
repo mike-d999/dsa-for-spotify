@@ -64,11 +64,12 @@ def main():
     # create a variable for checking if a valid response was provided for playlist
     pid_valid_response_provided = False
 
-    # input a playlist of your choice by pasting the playlist ID or URL here, check to ensure it is valid
+    # input a playlist of your choice by pasting the playlist ID or URL here, or 'q' to quit. check to ensure it is valid.
     while pid_valid_response_provided == False:
         playlist_id = input("Please enter a Spotify playlist ID or URL, or type 'q' to quit: ")
         
         if playlist_id == 'q':
+            pid_valid_response_provided = True
             print()
             print("Thank you for using the Duplicate Song Analyzer for Spotify!")
             quit()
