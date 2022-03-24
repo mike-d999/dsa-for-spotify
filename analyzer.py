@@ -2,105 +2,141 @@
 import os
 import tekore
 
-""" 
-User authentication with the Spotify Web API.
-"""
-# open the app config file containing the client id and client secret and write them to a list
-app_config_file = open('app_config.txt', 'r')
-app_config = []
+def main():
+    """ 
+    User authentication with the Spotify Web API.
+    """
+    # open the app config file containing the client id and client secret and write them to a list
+    app_config_file = open('app_config.txt', 'r')
+    app_config = []
 
-for eachLine in app_config_file:
-    app_config.append(eachLine.strip())
+    for eachLine in app_config_file:
+        app_config.append(eachLine.strip())
 
-# client id and client secret values from spotify application are populated in from the list
-client_id = app_config[0]
-client_secret = app_config[1]
+    # client id and client secret values from spotify application are populated in from the list
+    client_id = app_config[0]
+    client_secret = app_config[1]
 
-# generate an app token using the client id and client secret values from the spotify application
-app_token = tekore.request_client_token(client_id, client_secret)
+    # generate an app token using the client id and client secret values from the spotify application
+    app_token = tekore.request_client_token(client_id, client_secret)
 
-# assign the generated app token to an object
-spotify = tekore.Spotify(app_token)
+    # assign the generated app token to an object
+    spotify = tekore.Spotify(app_token)
 
-# set the redirect uri to the default value
-redirect_uri = 'https://example.com/callback'
+    # set the redirect uri to the default value
+    redirect_uri = 'https://example.com/callback'
 
-# if user_config file already exists, just load the existing values and refresh the user token - no need for a full reauth.
-if os.path.exists('user_config.cfg'):
-    user_config = tekore.config_from_file('user_config.cfg', return_refresh=True)
-    user_token = tekore.refresh_user_token(*user_config[:2], user_config[3])
-    print()
-    print("--------------------------------------------------------")
-    print("Welcome back to the Duplicate Song Analyzer for Spotify!")
-    print("--------------------------------------------------------")
-    print()
+    # if user_config file already exists, just load the existing values and refresh the user token - no need for a full reauth.
+    if os.path.exists('user_config.cfg'):
+        user_config = tekore.config_from_file('user_config.cfg', return_refresh=True)
+        user_token = tekore.refresh_user_token(*user_config[:2], user_config[3])
+        print()
+        print("--------------------------------------------------------")
+        print("Welcome back to the Duplicate Song Analyzer for Spotify!")
+        print("--------------------------------------------------------")
+        print()
 
-# if user_config file does not exist - sign in to spotify to get the initial user token and paste the redirect URL into the
-# terminal - the program will save a user_config file so you don't need to sign back into spotify again.
-else:
-    print()
-    print("---------------------------------------------------")
-    print("Welcome to the Duplicate Song Analyzer for Spotify!")
-    print("---------------------------------------------------")
-    print()
-    print("Since this is your first time using the program, please authorize your account with Spotify to continue.")
-    print("You will only have to do this once, as a file will be generated that saves your login information.")
-    print("(Note: If you delete 'user_config.cfg', you'll have to go through this setup again.)")
-    print()
-    user_token = tekore.prompt_for_user_token(client_id, client_secret, redirect_uri, scope=tekore.scope.every)
-    user_config = (client_id, client_secret, redirect_uri, user_token.refresh_token) 
-    tekore.config_to_file('user_config.cfg', user_config)
-    print()
-    print("Authorization successful!")
-    print()
-
-# replace the app token with the user token for access to the user's playlists and such
-spotify.token = user_token
-
-""" 
-Retrieve data from a playlist given a playlist ID.
-"""
-# input a playlist of your choice by pasting the URL here
-playlist_id = input("Please enter a Spotify playlist ID: ")
-playlist = spotify.playlist(playlist_id)
-print()
-print("Playlist found! Please wait while the program writes your playlist's song titles and artists to disk...")
-print()
-
-# create an index for iterating through track names and create a file for storing track names
-current_index = 0
-song_data = open('song_data.txt', 'w')
-
-# iterate through the first 100 tracks and artists and write them to the song data file
-while current_index < 100:
-    try:
-        song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
-        song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
-        song_data.write('\n')
-        print("Wrote track name and artist data for song", current_index+1, "to disk.")
-        current_index += 1
-    except:
-        song_data.close()
-        break
-
-# open the song data file and read it into list items (unformatted)
-with open('song_data.txt', 'r') as song_data:
-    song_data_list_unformatted = song_data.readlines()
-
-# create a new list (formatted) for storing song data
-song_data_list = []
-
-# for each item in the unformatted list, strip the newline character and append each item to a new list (formatted)
-for eachItem in song_data_list_unformatted:
-    song_data_list.append(eachItem.strip())
-
-# create lists for storing already seen song/artist combinations and unique ones
-unique_songs = []
-duplicate_songs = []
-
-# loop through the formatted song data list and identify if a song is unique or a duplicate - keep track by directing the song to its respective list.
-for eachItem in song_data_list:
-    if eachItem not in unique_songs:
-        unique_songs.append(eachItem)
+    # if user_config file does not exist - sign in to spotify to get the initial user token and paste the redirect URL into the
+    # terminal - the program will save a user_config file so you don't need to sign back into spotify again.
     else:
-        duplicate_songs.append(eachItem)
+        print()
+        print("---------------------------------------------------")
+        print("Welcome to the Duplicate Song Analyzer for Spotify!")
+        print("---------------------------------------------------")
+        print()
+        print("Since this is your first time using the program, please authorize your account with Spotify to continue.")
+        print("You will only have to do this once, as a file will be generated that saves your login information.")
+        print("(Note: If you delete 'user_config.cfg', you'll have to go through this setup again.)")
+        print()
+        user_token = tekore.prompt_for_user_token(client_id, client_secret, redirect_uri, scope=tekore.scope.every)
+        user_config = (client_id, client_secret, redirect_uri, user_token.refresh_token) 
+        tekore.config_to_file('user_config.cfg', user_config)
+        print()
+        print("Authorization successful!")
+        print()
+
+    # replace the app token with the user token for access to the user's playlists and such
+    spotify.token = user_token
+
+    """ 
+    Retrieve data from a playlist given a playlist ID.
+    """
+    # input a playlist of your choice by pasting the URL here
+    playlist_id = input("Please enter a Spotify playlist ID: ")
+    playlist = spotify.playlist(playlist_id)
+    print()
+    print("Playlist found! Please wait while the program writes your playlist's song titles and artists to disk...")
+    print()
+
+    # create an index for iterating through track names and create a file for storing track names
+    current_index = 0
+    song_data = open('song_data.txt', 'w')
+
+    # iterate through the first 100 tracks and artists and write them to the song data file
+    while current_index < 100:
+        try:
+            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
+            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
+            song_data.write('\n')
+            print("Wrote track name and artist data for song", current_index+1, "to disk.")
+            current_index += 1
+        except:
+            song_data.close()
+            break
+
+    # open the song data file and read it into list items (unformatted)
+    with open('song_data.txt', 'r') as song_data:
+        song_data_list_unformatted = song_data.readlines()
+
+    # create a new list (formatted) for storing song data
+    song_data_list = []
+
+    # for each item in the unformatted list, strip the newline character and append each item to a new list (formatted)
+    for eachItem in song_data_list_unformatted:
+        song_data_list.append(eachItem.strip())
+
+    # create lists for storing already seen song/artist combinations and unique ones
+    unique_songs = []
+    duplicate_songs = []
+
+    # loop through the formatted song data list and identify if a song is unique or a duplicate - keep track by directing the song to its respective list.
+    for eachItem in song_data_list:
+        if eachItem not in unique_songs:
+            unique_songs.append(eachItem)
+        else:
+            duplicate_songs.append(eachItem)
+    
+    # notify the user of the duplicates found (or if none were found)
+    if len(duplicate_songs) == 0:
+        print()
+        print("No duplicates were found in this playlist!")
+        print()
+        run_again()
+
+    else:
+        print()
+        print("There were", len(duplicate_songs), "duplicate songs found in your playlist.")
+        run_again()
+
+def run_again():
+    # create a variable for checking if a valid response was provided for running the program again
+    ra_valid_response_provided = False
+
+    # ask the user if they'd like to run the program again or not
+    run_again = input("Would you like to check for duplicates in another playlist? ")
+
+    # check for a valid response as to if the program should run again or not and respond accordingly 
+    while ra_valid_response_provided == False:
+        if run_again == 'y':
+            ra_valid_response_provided = True
+            main()
+        elif run_again == 'n':
+            ra_valid_response_provided = True
+            print()
+            print("Thank you for using the Duplicate Song Analyzer for Spotify!")
+        else:
+            print()
+            print("The response you provided was invalid. The valid responses are 'y' for yes and 'n' for no.")
+            run_again = input("Would you like to check for duplicates in another playlist? ")
+
+main()
