@@ -66,14 +66,18 @@ def main():
 
     # input a playlist of your choice by pasting the playlist ID or URL here, check to ensure it is valid
     while pid_valid_response_provided == False:
-        playlist_id = input("Please enter a Spotify playlist ID or URL: ")
+        playlist_id = input("Please enter a Spotify playlist ID or URL, or type 'q' to quit: ")
         
+        if playlist_id == 'q':
+            print()
+            print("Thank you for using the Duplicate Song Analyzer for Spotify!")
+            quit()
+
         # convert the URL to just the playlist ID portion so the program can work with it
         spotify_url_prefix = 'https://open.spotify.com/playlist/'
 
         if spotify_url_prefix in playlist_id:
             playlist_id = playlist_id.removeprefix(spotify_url_prefix)
-            print(playlist_id)
 
         # if a valid URL or ID is given, write the contents to disk - otherwise, prompt until a valid response is given.
         try:
