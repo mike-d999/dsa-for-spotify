@@ -59,15 +59,24 @@ def main():
     spotify.token = user_token
 
     """ 
-    Retrieve data from a playlist given a playlist ID.
+    Retrieve data from a playlist given a playlist ID or URL.
     """
     # create a variable for checking if a valid response was provided for playlist
     pid_valid_response_provided = False
 
-    # input a playlist of your choice by pasting the playlist iD here, check to ensure it is valid
+    # input a playlist of your choice by pasting the playlist ID or URL here, check to ensure it is valid
     while pid_valid_response_provided == False:
+        playlist_id = input("Please enter a Spotify playlist ID or URL: ")
+        
+        # convert the URL to just the playlist ID portion so the program can work with it
+        spotify_url_prefix = 'https://open.spotify.com/playlist/'
+
+        if spotify_url_prefix in playlist_id:
+            playlist_id = playlist_id.removeprefix(spotify_url_prefix)
+            print(playlist_id)
+
+        # if a valid URL or ID is given, write the contents to disk - otherwise, prompt until a valid response is given.
         try:
-            playlist_id = input("Please enter a Spotify playlist ID: ")
             playlist = spotify.playlist(playlist_id)
             pid_valid_response_provided = True
             print()
@@ -75,7 +84,7 @@ def main():
             print()
         except:
             print()
-            print("The playlist URL you specified was invalid.")
+            print("The playlist ID or URL you specified was invalid.")
 
     # create an index for iterating through track names and create a file for storing track info
     current_index = 0
