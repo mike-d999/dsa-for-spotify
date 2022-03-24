@@ -65,20 +65,24 @@ def main():
     playlist_id = input("Please enter a Spotify playlist ID: ")
     playlist = spotify.playlist(playlist_id)
     print()
-    print("Playlist found! Please wait while the program writes your playlist's song titles and artists to disk...")
+    print("Playlist found! Please wait while the program writes your playlist's data to disk...")
     print()
 
     # create an index for iterating through track names and create a file for storing track names
     current_index = 0
     song_data = open('song_data.txt', 'w')
 
-    # iterate through the first 100 tracks and artists and write them to the song data file
+    # create a list for storing each song's URI - needed for duplicate removal
+    song_uris = []
+
+    # iterate through the first 100 tracks and artists and write to the song data file
     while current_index < 100:
         try:
             song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
             song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name)
             song_data.write('\n')
-            print("Wrote track name and artist data for song", current_index+1, "to disk.")
+            song_uris.append(spotify.playlist_items(playlist.id).items[current_index].track.uri)
+            print("Wrote data for song", current_index+1, "to disk.")
             current_index += 1
         except:
             song_data.close()
