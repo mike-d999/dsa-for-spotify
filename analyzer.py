@@ -139,4 +139,5 @@ def run_again():
             print("The response you provided was invalid. The valid responses are 'y' for yes and 'n' for no.")
             run_again = input("Would you like to check for duplicates in another playlist? ")
 
+# run the program
 main()
