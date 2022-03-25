@@ -99,12 +99,12 @@ def main():
     song_uris_dict = {}
 
     # iterate through the first 100 tracks and artists and write to the song data file
-    while current_index < 100:
+    for current_index in range(0,100):
         try:
-            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- ")
-            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name + " " + "- ")
-            song_data.write(spotify.playlist_items(playlist.id).items[current_index].track.album.name)
-            song_data.write('\n')
+            song_data_to_write = spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- " + \
+            spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name + " " + "- " + \
+            spotify.playlist_items(playlist.id).items[current_index].track.album.name + '\n'
+            song_data.write(song_data_to_write)
             song_uris_dict[spotify.playlist_items(playlist.id).items[current_index].track.name + " " + "- " + \
             spotify.playlist_items(playlist.id).items[current_index].track.artists[0].name + " " + "- " + \
             spotify.playlist_items(playlist.id).items[current_index].track.album.name] \
