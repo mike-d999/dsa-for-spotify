@@ -239,8 +239,6 @@ def run_again():
 
 def cleanup():
     # remove the following files after using the program
-    if os.path.exists('__pycache__'):
-        os.remove('__pycache__')
     if os.path.exists('.DS_Store'):
         os.remove('.DS_Store')
     if os.path.exists('song_data.txt'):
