@@ -1,8 +1,14 @@
-# import tekore for working with the spotify web api, os for os level functions
+# import tekore for working with the spotify web api, os for os level functions, sys for Python version checking
 import os
+import sys
 import tekore
 
 def main():
+    # check if the user has Python version 3.9 or higher installed - if not, do not allow the user to run the program
+    if sys.version_info < (3,9):
+        print("This program requires Python version 3.9 or higher. Please update your Python installation to use this program.")
+        quit()
+
     """ 
     User authentication with the Spotify Web API.
     """
