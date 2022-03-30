@@ -15,6 +15,7 @@ def main():
         print("The 'app_config.txt' file was not found!") 
         print("Please ensure that you created the file and that it contains your Client ID and Client Secret.")
         print()
+        cleanup()
         quit()
     
     # check if the app config file is empty - do not allow the program to proceed if it's empty
@@ -23,6 +24,7 @@ def main():
         print("The 'app_config.txt' file is empty!") 
         print("Please ensure that the file contains your Client ID and Client Secret.")
         print()
+        cleanup()
         quit()
     else:    
         # write the client id and client secret to a list
@@ -31,20 +33,20 @@ def main():
             app_config.append(eachLine.strip())
 
     # client id and client secret values from spotify application are populated in from the list
-    client_id = app_config[0]
-    client_secret = app_config[1]
-
-    # check if the app config file information is valid - do not allow the program to proceed if it's invalid
     try:
-        # generate an app token using the client id and client secret values from the spotify application
-        app_token = tekore.request_client_token(client_id, client_secret)
+        client_id = app_config[0]
+        client_secret = app_config[1]
     except:
         print()
         print("The information you supplied in 'app_config.txt' is invalid!") 
         print("Please ensure that the Client ID and Client Secret inside of the file is correct.")
         print()
+        cleanup()
         quit()
 
+    # generate an app token using the client id and client secret values from the spotify application
+    app_token = tekore.request_client_token(client_id, client_secret)
+    
     # assign the generated app token to an object
     spotify = tekore.Spotify(app_token)
 
@@ -97,6 +99,7 @@ def main():
             pid_valid_response_provided = True
             print()
             print("Thank you for using the Duplicate Song Analyzer for Spotify!")
+            cleanup()
             quit()
 
         # convert the URL to just the playlist ID portion so the program can work with it
@@ -228,6 +231,7 @@ def run_again():
             print()
             print("Thank you for using the Duplicate Song Analyzer for Spotify!")
             cleanup()
+            quit()
         else:
             print()
             print("The response you provided was invalid. The valid responses are 'y' for yes and 'n' for no.")
