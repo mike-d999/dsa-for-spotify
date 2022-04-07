@@ -14,7 +14,7 @@ In order to use the Duplicate Song Analyzer for Spotify, you will need:
 
 
 ## Installation
-1. Create an app on the [Spotify for Developers Dashboard](https://developer.spotify.com/dashboard).
+1. Create an app on the [Spotify for Developers Dashboard](https://developer.spotify.com/dashboard) to get your Client ID and Client Secret.
 <img src="https://user-images.githubusercontent.com/101309289/162298139-5021c7cf-a1bc-4dbe-83a0-058262b4f1c4.gif" width="750px">
 
 (work in progress)
