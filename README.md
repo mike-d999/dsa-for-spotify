@@ -8,8 +8,9 @@ This is where my program, "Duplicate Song Analyzer for Spotify" comes in.
 
 ## Requirements
 In order to use the Duplicate Song Analyzer for Spotify, you will need:
-- A Spotify Account
-  - A Client ID and Client Secret (obtained by creating an app on the [Spotify for Developers Dashboard](https://developer.spotify.com/dashboard))
+- A Spotify account
+- A Client ID and Client Secret (obtained by creating an app on the [Spotify for Developers Dashboard](https://developer.spotify.com/dashboard))
+- At least one playlist that you'd like to search for duplicates in
 - [Python 3.9+](https://www.python.org/downloads/)
 
 
