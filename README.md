@@ -19,13 +19,5 @@ Create an app on the [Spotify for Developers Dashboard](https://developer.spotif
 
 <img src="https://user-images.githubusercontent.com/101309289/162298139-5021c7cf-a1bc-4dbe-83a0-058262b4f1c4.gif" width="800px">
 
-Download Duplicate Song Analyzer for Spotify:  
-
-#### Terminal:
-```
-git clone https://github.com/mike-d999/dsa-for-spotify
-```
-or
-#### Web:
 (work in progress)
 
