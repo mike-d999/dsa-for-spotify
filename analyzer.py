@@ -1,4 +1,4 @@
-# import tekore for working with the spotify web api, os for os level functions, sys for Python version checking
+# import os for os level functions, sys for Python version checking, tekore for working with the spotify web api
 import os
 import sys
 import tekore
