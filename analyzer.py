@@ -15,19 +15,19 @@ def main():
     # check if the app config file exists - do not allow the program to proceed if it doesn't
     try:
         # open the app config file containing the client id and client secret
-        app_config_file = open('app_config.txt', 'r')
+        app_config_file = open('app_config.cfg', 'r')
     except:
         print()
-        print("The 'app_config.txt' file was not found!") 
+        print("The 'app_config.cfg' file was not found!") 
         print("Please ensure that you created the file and that it contains your Client ID and Client Secret.")
         print()
         cleanup()
         quit()
     
     # check if the app config file is empty - do not allow the program to proceed if it's empty
-    if os.path.getsize('app_config.txt') == 0:
+    if os.path.getsize('app_config.cfg') == 0:
         print()
-        print("The 'app_config.txt' file is empty!") 
+        print("The 'app_config.cfg' file is empty!") 
         print("Please ensure that the file contains your Client ID and Client Secret.")
         print()
         cleanup()
@@ -44,7 +44,7 @@ def main():
         client_secret = app_config[1]
     except:
         print()
-        print("The information you supplied in 'app_config.txt' is invalid!") 
+        print("The information you supplied in 'app_config.cfg' is invalid!") 
         print("Please ensure that the Client ID and Client Secret inside of the file is correct.")
         print()
         cleanup()
