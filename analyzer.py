@@ -79,7 +79,7 @@ def main():
         print()
         print("Since this is your first time using the program, please authorize your account with Spotify to continue.")
         print("You will only have to do this once, as a file will be generated that saves your login information.")
-        print("(Note: If you delete 'user_config.cfg', you'll have to go through this setup again.)")
+        print("(Note: If you delete 'user_config.cfg', you'll have to go through this setup process again.)")
         print()
         user_token = tekore.prompt_for_user_token(client_id, client_secret, redirect_uri, scope=tekore.scope.every)
         user_config = (client_id, client_secret, redirect_uri, user_token.refresh_token) 
