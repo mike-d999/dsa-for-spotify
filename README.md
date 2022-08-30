@@ -13,7 +13,16 @@ In order to use Duplicate Song Analyzer for Spotify, you will need:
 - At least one playlist that you'd like to search for duplicates in
 - [Python 3.9+](https://www.python.org/downloads/)
 
-
-## Installation
+## How to Use
+- Download the program.
 - Create an app on the [Spotify for Developers Dashboard](https://developer.spotify.com/dashboard) to obtain a Client ID and Client Secret.
+- Navigate to the directory where you downloaded the program and run ```make install``` to install all the required dependencies.
+- Create a file in the directory named ```app_config.cfg```. **Place your Client ID in the first line and your Client Secret in the second line.**
+- Run the program with ```make run```.
+  - On your first run, you will be prompted to login with your Spotify Account and grant access to the program. Paste the link that the webpage gives you after signing in into the program. You will only have to do this once - unless you delete the ```app_config.cfg``` file.
+- Follow the detailed instructions given in the program.
 
+## Notes
+- Currently, I am only able to get it to work with up to 100 songs. If your playlist contains more than 100 songs, it will work - but the program will quit analyzing after you hit song #100. A workaround for this "problem" is to create a new playlist for each subsequent chunk of 100 songs to analyze and then move them back to the original playlist (or a different one) until you're all done analyzing all your songs.
+
+```(work in progress)```
