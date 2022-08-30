@@ -23,6 +23,6 @@ In order to use Duplicate Song Analyzer for Spotify, you will need:
 - Follow the detailed instructions given in the program.
 
 ## Notes
-- Currently, I am only able to get it to work with up to 100 songs. If your playlist contains more than 100 songs, it will work - but the program will quit analyzing after you hit song #100. A workaround for this "problem" is to create a new playlist for each subsequent chunk of 100 songs for analysis purposes and then move all the 'cleaned' songs back to your original playlist when you're done looking for duplicates.
+- Currently, I am only able to get the program to work with up to 100 songs. If your playlist contains more than 100 songs, it will work - but the program will quit analyzing after you hit song #100. A workaround for this "problem" is to create a new playlist for each subsequent chunk of 100 songs for analysis purposes and then move all the 'cleaned' songs back to your original playlist when you're done looking for duplicates.
 
 ```(work in progress)```
